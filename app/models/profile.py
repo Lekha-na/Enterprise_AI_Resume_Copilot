@@ -11,7 +11,7 @@ class CandidateProfile(BaseModel):
 class ProfileAnalysis(BaseModel):
     candidate_level: str
     primary_domain: str
-    years_experience: float
+    years_experience: float = Field(ge=0)
     key_skills: list[str]
     project_summary: str
     education_summary: str

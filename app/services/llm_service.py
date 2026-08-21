@@ -1,22 +1,15 @@
-import os
+import logging
 
-from dotenv import load_dotenv, find_dotenv
+
 from google import genai
 from google.genai import types
 
+from app.core.settings import GEMINI_API_KEY, GEMINI_MODEL
 
-env_path = find_dotenv()
-load_dotenv(env_path)
+logger = logging.getLogger(__name__)
 
-api_key = os.getenv("GEMINI_API_KEY")
 
-if not api_key:
-    raise ValueError(
-        "GEMINI_API_KEY is not configured. "
-        "Please add it to your .env file."
-    )
-
-client = genai.Client(api_key=api_key)
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 
 def ask_gemini(prompt: str, response_schema=None):
@@ -31,7 +24,7 @@ def ask_gemini(prompt: str, response_schema=None):
             )
 
         response = client.models.generate_content(
-            model="gemini-3.5-flash-lite",
+            model=GEMINI_MODEL,
             contents=prompt,
             config=config,
         )
@@ -43,7 +36,7 @@ def ask_gemini(prompt: str, response_schema=None):
 
     except Exception as e:
 
-        print(f"Gemini API Error: {e}")
+        logger.exception("Gemini API Error")
 
         raise RuntimeError(
             "AI service temporarily unavailable. "

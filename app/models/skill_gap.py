@@ -1,7 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class SkillGap(BaseModel):
-    skill: str
-    importance: str
-    reason: str
-    recommendation: str
+    skill: str = Field(min_length=1)
+    importance: str = Field(
+        pattern="^(High|Medium|Low)$"
+    )
+    reason: str = Field(min_length=1)
+    recommendation: str = Field(min_length=1)

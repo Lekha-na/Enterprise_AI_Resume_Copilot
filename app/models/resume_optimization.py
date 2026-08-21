@@ -1,7 +1,7 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class ResumeOptimization(BaseModel):
-    section: str
-    current_issue: str
-    recommendation: str
-    reason: str
+    section: str = Field(min_length=1)
+    current_issue: str = Field(min_length=1)
+    recommendation: str = Field(min_length=1)
+    reason: str = Field(min_length=1)
