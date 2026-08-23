@@ -34,12 +34,17 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------
 
 app = FastAPI(
-    title="Enterprise AI Resume Copilot",
+    title="Enterprise AI Resume Copilot API",
     description=(
-        "AI-powered resume analysis and job matching service "
-        "using Gemini and specialized analysis agents."
+        "Production-ready AI-powered resume analysis and job matching API. "
+        "The system analyzes candidate profiles, evaluates job descriptions, "
+        "matches candidates against job requirements, identifies skill gaps, "
+        "optimizes resumes, and generates final application recommendations "
+        "using specialized AI agents powered by Google Gemini."
     ),
     version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
 )
 
 
@@ -75,6 +80,11 @@ async def runtime_error_handler(
 @app.get(
     "/",
     summary="Health check",
+    description=(
+        "Checks whether the Enterprise AI Resume Copilot API "
+        "is running and available."
+    ),
+    response_description="API availability status",
     tags=["Health"],
 )
 def root():
@@ -90,6 +100,13 @@ def root():
 @app.post(
     "/analyze-profile",
     summary="Analyze candidate profile",
+    description=(
+        "Analyzes a candidate profile using the AI profile "
+        "analyzer and returns structured information about "
+        "experience, domain, skills, projects, education, "
+        "and certifications."
+    ),
+    response_description="Structured candidate profile analysis",
     tags=["Analysis"],
 )
 def analyze_profile_endpoint(
@@ -105,6 +122,12 @@ def analyze_profile_endpoint(
 @app.post(
     "/analyze-job",
     summary="Analyze job description",
+    description=(
+        "Analyzes a job description and extracts required skills, "
+        "preferred skills, experience requirements, and "
+        "responsibilities."
+    ),
+    response_description="Structured job description analysis",
     tags=["Analysis"],
 )
 def analyze_job_endpoint(
@@ -120,6 +143,12 @@ def analyze_job_endpoint(
 @app.post(
     "/analyze-match",
     summary="Match candidate against a job",
+    description=(
+        "Compares a candidate profile with a job description "
+        "and identifies matched skills, missing skills, and "
+        "an overall match percentage."
+    ),
+    response_description="Candidate-job matching analysis",
     tags=["Analysis"],
 )
 def analyze_match_endpoint(
@@ -149,6 +178,13 @@ def analyze_match_endpoint(
     "/analyze",
     response_model=AnalyzeResponse,
     summary="Run complete resume analysis",
+    description=(
+        "Runs the complete AI Resume Copilot pipeline including "
+        "profile analysis, job analysis, candidate-job matching, "
+        "skill-gap analysis, resume optimization, and final "
+        "recommendation."
+    ),
+    response_description="Complete resume analysis result",
     tags=["Analysis"],
 )
 def analyze_endpoint(

@@ -298,6 +298,7 @@ def test_analyze_profile(monkeypatch):
     assert data["candidate_level"] == "Entry-level"
     assert data["primary_domain"] == "Artificial Intelligence"
     assert data["years_experience"] == 0
+    assert "Python" in data["key_skills"]
 
 def test_analyze_job(monkeypatch):
 
@@ -361,12 +362,9 @@ def test_analyze_job(monkeypatch):
 
     data = response.json()
 
-    assert "required_skills" in data
-    assert "preferred_skills" in data
-    assert "required_experience" in data
-    assert "responsibilities" in data
-
     assert "Python" in data["required_skills"]
+    assert "RAG" in data["required_skills"]
+    assert "Docker" in data["preferred_skills"]
     assert data["required_experience"] == "1-2 years"
 
 def test_analyze_match(monkeypatch):
@@ -378,7 +376,7 @@ def test_analyze_match(monkeypatch):
             years_experience=0,
             key_skills=["Python", "FastAPI", "LangChain"],
             project_summary="Developed AI Resume Copilot.",
-            education_summary="B.Tech in Electronics and Communication Engineering",
+            education_summary=("B.Tech in Electronics and Communication Engineering"),
             certification_summary="None"
         )
 
@@ -445,7 +443,8 @@ def test_analyze_match(monkeypatch):
             "projects": [
                 "AI Resume Copilot"
             ],
-            "education": "B.Tech in Electronics and Communication Engineering",
+            "education": (
+                "B.Tech in Electronics and Communication Engineering"),
             "certifications": []
         },
         "job": {
@@ -572,35 +571,29 @@ def test_final_recommendation_rejects_invalid_percentage():
             priority_improvements=["Learn RAG"]
         )
 
-        def test_analyze_endpoint(monkeypatch):
-            from app.main import app
-            from fastapi.testclient import TestClient
-
-            client = TestClient(app)
-
-            def mock_analyze_resume(candidate, job):
-                return {
-                    "profile_analysis": {
-                        "candidate_level": "Entry-Level",
-                        "primary_domain": "Artificial Intelligence",
-                        "years_experience": 0,
-                        "key_skills": ["Python", "FastAPI", "LangChain"],
-                        "project_summary": "Developed AI Resume Copilot.",
-                        "education_summary": "B.Tech in Electronics and Communication Engineering",
-                       "certification_summary": "None"
-            },
+def test_analyze_endpoint(monkeypatch):
+    
+    def mock_analyze_resume(candidate, job):
+         return {
+             "profile_analysis": {
+             "candidate_level": "Entry-Level",
+             "primary_domain": "Artificial Intelligence",
+             "years_experience": 0,
+             "key_skills": ["Python", "FastAPI", "LangChain"],
+             "project_summary": "Developed AI Resume Copilot.",
+             "education_summary": ("B.Tech in Electronics and Communication Engineering"),
+             "certification_summary": "None"
+        },
             "job_analysis": {
                 "required_skills": [
                     "Python",
                     "FastAPI",
-                    "LangChain",
-                    "RAG"
+                    "LangChain"
                 ],
-                "preferred_skills": ["Docker"],
+                "preferred_skills": [],
                 "required_experience": "1-2 years",
                 "responsibilities": [
                     "Build LLM applications",
-                    "Develop REST APIs"
                 ]
             },
             "match_analysis": {
@@ -609,49 +602,29 @@ def test_final_recommendation_rejects_invalid_percentage():
                     "FastAPI",
                     "LangChain"
                 ],
-                "missing_skills": ["RAG", "Docker"],
-                "match_percentage": 60,
-                "overall_assessment": "Partial match."
+                "missing_skills": [],
+                "match_percentage": 100.0,
+                "overall_assessment": "strong match."
             },
-            "skill_gaps": [
-                {
-                    "skill": "RAG",
-                    "importance": "High",
-                    "reason": "Required for the job.",
-                    "recommendation": "Build an end-to-end RAG project."
-                }
-            ],
-            "resume_optimizations": [
-                {
-                    "section": "Projects",
-                    "current_issue": "Project details are brief.",
-                    "recommendation": "Expand project details.",
-                    "reason": "Demonstrates practical skills."
-                }
-            ],
+            "skill_gaps": [],
+            "resume_optimizations": [],
             "final_recommendation": {
-                "overall_match": 60,
-                "application_recommendation": "Apply after upskilling",
+                "overall_match": 100.0,
+                "application_recommendation": "Recommended",
                 "key_strengths": [
                     "Python",
                     "FastAPI",
                     "LangChain"
                 ],
-                "major_gaps": [
-                    "RAG",
-                    "Docker"
-                ],
-                "priority_improvements": [
-                    "Build an end-to-end RAG project"
-                ]
+                "major_gaps": [],
+                "priority_improvements": [],
             }
         }
-
-            monkeypatch.setattr(
+    monkeypatch.setattr(
    "app.main.analyze_resume", 
      mock_analyze_resume
  )
-            payload = {
+    payload = {
    "candidate": {
       "name": "Lekhana",
       "skills": [
@@ -684,18 +657,20 @@ def test_final_recommendation_rejects_invalid_percentage():
             ]
      }
 }
-            response = client.post(
+    response = client.post(
                        "/analyze",
                         json=payload
                 )
-            assert response.status_code == 200
+    assert response.status_code == 200
 
-            data = response.json() 
-            assert "profile_analysis" in data
-            assert "job_analysis" in data
-            assert "match_analysis" in data
-            assert "skill_gaps" in data
-            assert "resume_optimizations" in data
-            assert "final_recommendation" in data
+    data = response.json() 
+    
+    assert "profile_analysis" in data
+    assert "job_analysis" in data
+    assert "match_analysis" in data
+    assert "skill_gaps" in data
+    assert "resume_optimizations" in data
+    assert "final_recommendation" in data
 
-            assert data["match_analysis"]["match_percentage"] == 60
+    assert data["match_analysis"]["match_percentage"] == 100.0
+    assert data["final_recommendation"]["overall_match"] == 100.0
