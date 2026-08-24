@@ -1,123 +1,206 @@
-# Enterprise AI Resume Copilot
+# 🚀 Enterprise AI Resume Copilot
 
-An AI-powered resume analysis and job-matching system that analyzes a candidate's profile against a job description, identifies skill gaps, evaluates job fit, and provides actionable resume and career recommendations.
+### AI-Powered Resume Analysis & Job Matching System
 
-## 🚀 Overview
+Enterprise AI Resume Copilot is a **Generative AI-powered application** that analyzes candidate profiles and job descriptions, evaluates candidate-job compatibility, identifies skill gaps, provides resume optimization suggestions, and generates actionable career recommendations.
 
-**Enterprise AI Resume Copilot** is a modular Generative AI application built with Python, FastAPI, and Google's Gemini API.
+The application is built with **Python, FastAPI, Google Gemini, LangChain, Pydantic, and Uvicorn**, and is deployed as a production API on **Render**.
 
-The system uses multiple specialized AI agents to analyze:
+---
 
-- Candidate profiles
-- Job descriptions
-- Candidate-job matching
-- Skill gaps
-- Resume optimization opportunities
-- Final application recommendations
+## 🌐 Live Demo
 
-The project follows a modular architecture so that each analysis component can be developed, tested, and improved independently.
+### 🚀 Production API
+
+**https://enterprise-ai-resume-copilot.onrender.com**
+
+### 📚 Interactive API Documentation
+
+**https://enterprise-ai-resume-copilot.onrender.com/docs**
+
+The Swagger UI provides an interactive interface for testing all available API endpoints.
 
 ---
 
 ## ✨ Key Features
 
-### 👤 Candidate Profile Analysis
-
-Analyzes candidate information including:
-
-- Technical skills
-- Education
-- Experience
-- Projects
-- Certifications
-- Career level
-- Primary technical domain
-
-### 💼 Job Description Analysis
-
-Extracts important information from a job description:
-
-- Required skills
-- Preferred skills
-- Required experience
-- Job responsibilities
-
-### 🎯 Candidate-Job Matching
-
-Compares candidate skills with job requirements and determines:
-
-- Matched skills
-- Missing skills
-- Match percentage
-- Overall job-fit assessment
-
-### 📊 Skill Gap Analysis
-
-Identifies missing or insufficient skills required for the target position and provides improvement suggestions.
-
-### 📝 Resume Optimization
-
-Generates recommendations for improving the candidate's resume based on the target job description.
-
-### 🤖 Final Recommendation
-
-Produces an overall recommendation containing:
-
-- Overall match score
-- Application recommendation
-- Key strengths
-- Major gaps
-- Priority improvements
+* 🤖 AI-powered candidate profile analysis
+* 📄 Intelligent job description analysis
+* 🎯 Candidate-job matching
+* 📊 Match percentage calculation
+* 🔍 Skill gap identification
+* 📝 AI-powered resume optimization
+* 💡 Final career recommendations
+* 🔗 REST API using FastAPI
+* 📚 Interactive Swagger/OpenAPI documentation
+* 🧩 Modular AI-agent architecture
+* 🧪 Automated testing with Pytest
+* 📈 Code coverage analysis
+* ☁️ Cloud deployment using Render
 
 ---
 
 ## 🏗️ System Architecture
 
-The project follows a modular agent-based architecture:
+![Enterprise AI Resume Copilot Architecture](docs/screenshots/architecture.png)
+
+The system follows a modular AI-analysis architecture.
 
 ```text
-                    ┌──────────────────────┐
-                    │      Candidate       │
-                    │       Profile        │
-                    └──────────┬───────────┘
+                    ┌────────────────────────┐
+                    │    Candidate Profile   │
+                    │ Skills / Experience    │
+                    │ Projects / Education   │
+                    └───────────┬────────────┘
+                                │
+                                ▼
+                    ┌────────────────────────┐
+                    │      FastAPI API       │
+                    │        Layer           │
+                    └───────────┬────────────┘
+                                │
+                                ▼
+             ┌────────────────────────────────────┐
+             │        AI ANALYSIS PIPELINE         │
+             │                                    │
+             │  ┌──────────────────────────────┐  │
+             │  │      Profile Analyzer        │  │
+             │  └──────────────┬───────────────┘  │
+             │                 ▼                  │
+             │  ┌──────────────────────────────┐  │
+             │  │        Job Analyzer          │  │
+             │  └──────────────┬───────────────┘  │
+             │                 ▼                  │
+             │  ┌──────────────────────────────┐  │
+             │  │        Job Matcher            │  │
+             │  └──────────────┬───────────────┘  │
+             │                 ▼                  │
+             │  ┌──────────────────────────────┐  │
+             │  │      Skill Gap Analyzer      │  │
+             │  └──────────────┬───────────────┘  │
+             │                 ▼                  │
+             │  ┌──────────────────────────────┐  │
+             │  │      Resume Optimizer        │  │
+             │  └──────────────┬───────────────┘  │
+             │                 ▼                  │
+             │  ┌──────────────────────────────┐  │
+             │  │     Final Recommender        │  │
+             │  └──────────────┬───────────────┘  │
+             └─────────────────┼──────────────────┘
                                │
                                ▼
-                    ┌──────────────────────┐
-                    │  Profile Analyzer    │
-                    │        Agent         │
-                    └──────────┬───────────┘
-                               │
-                               │
-                    ┌──────────▼───────────┐
-                    │      Job Analyzer     │
-                    │        Agent          │
-                    └──────────┬───────────┘
-                               │
-                               ▼
-                    ┌──────────────────────┐
-                    │     Job Matcher       │
-                    │        Agent          │
-                    └──────────┬───────────┘
-                               │
-                 ┌─────────────┴─────────────┐
-                 ▼                           ▼
-       ┌──────────────────┐       ┌──────────────────┐
-       │   Skill Gap      │       │ Resume Optimizer │
-       │    Analyzer      │       │                  │
-       └────────┬─────────┘       └────────┬─────────┘
-                │                          │
-                └────────────┬─────────────┘
-                             ▼
-                  ┌──────────────────────┐
-                  │ Final Recommendation │
-                  │        Agent         │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │   Final Analysis     │
-                  └──────────────────────┘
+                    ┌────────────────────────┐
+                    │    Google Gemini LLM   │
+                    │    Service             │
+                    └───────────┬────────────┘
+                                │
+                                ▼
+                    ┌────────────────────────┐
+                    │ Comprehensive Analysis │
+                    │        Report          │
+                    └────────────────────────┘
 ```
+
+---
+
+## 🔄 Workflow
+
+The complete AI Resume Copilot workflow consists of six major stages.
+
+### 1️⃣ Profile Analysis
+
+The Profile Analyzer processes the candidate information and extracts:
+
+* Candidate level
+* Primary domain
+* Years of experience
+* Key skills
+* Project information
+* Education
+* Certifications
+
+### 2️⃣ Job Analysis
+
+The Job Analyzer processes the target job description and extracts:
+
+* Required skills
+* Preferred skills
+* Experience requirements
+* Job responsibilities
+* Key job requirements
+
+### 3️⃣ Candidate-Job Matching
+
+The Job Matcher compares the candidate profile against the analyzed job requirements.
+
+It identifies:
+
+* Matching skills
+* Missing skills
+* Candidate-job match percentage
+
+### 4️⃣ Skill Gap Analysis
+
+The Skill Gap Analyzer identifies the skills that the candidate needs to improve to better qualify for the target role.
+
+### 5️⃣ Resume Optimization
+
+The Resume Optimizer generates AI-powered suggestions to improve the candidate's resume and align it more closely with the target job.
+
+### 6️⃣ Final Recommendation
+
+The Final Recommender combines all analysis results and produces:
+
+* Overall recommendation
+* Candidate suitability
+* Improvement areas
+* Suggested action plan
+
+---
+
+## 🧠 AI Pipeline
+
+```text
+Candidate Profile
+        │
+        ▼
+Profile Analyzer
+        │
+        ▼
+Job Description ──────► Job Analyzer
+                              │
+                              ▼
+                        Job Matcher
+                              │
+                              ▼
+                     Skill Gap Analyzer
+                              │
+                              ▼
+                      Resume Optimizer
+                              │
+                              ▼
+                     Final Recommender
+                              │
+                              ▼
+                   Final AI Recommendation
+```
+
+---
+
+## 🛠️ Technology Stack
+
+| Technology      | Purpose                     |
+| --------------- | --------------------------- |
+| 🐍 Python       | Core programming language   |
+| ⚡ FastAPI       | REST API framework          |
+| ✨ Google Gemini | Generative AI / LLM         |
+| 🔗 LangChain    | LLM application framework   |
+| 📦 Pydantic     | Data validation and schemas |
+| 🚀 Uvicorn      | ASGI application server     |
+| 🧪 Pytest       | Automated testing           |
+| 📈 pytest-cov   | Code coverage               |
+| 🐙 GitHub       | Version control             |
+| ☁️ Render       | Cloud deployment            |
 
 ---
 
@@ -127,9 +210,8 @@ The project follows a modular agent-based architecture:
 Enterprise_AI_Resume_Copilot/
 │
 ├── app/
-│   ├── main.py
-│   │
 │   ├── agents/
+│   │   ├── __init__.py
 │   │   ├── profile_analyzer.py
 │   │   ├── job_analyzer.py
 │   │   ├── job_matcher.py
@@ -138,6 +220,7 @@ Enterprise_AI_Resume_Copilot/
 │   │   └── final_recommender.py
 │   │
 │   ├── api/
+│   │   ├── __init__.py
 │   │   └── routes.py
 │   │
 │   ├── core/
@@ -145,212 +228,163 @@ Enterprise_AI_Resume_Copilot/
 │   │   └── settings.py
 │   │
 │   ├── models/
-│   │   ├── profile.py
+│   │   ├── analyze_response.py
 │   │   ├── job.py
 │   │   ├── match.py
 │   │   ├── match_request.py
-│   │   ├── skill_gap.py
-│   │   ├── resume_optimization.py
+│   │   ├── profile.py
 │   │   ├── recommendation.py
-│   │   └── analyze_response.py
+│   │   ├── resume_optimization.py
+│   │   └── skill_gap.py
 │   │
 │   ├── orchestrator/
 │   │   └── resume_analysis.py
 │   │
-│   └── services/
-│       ├── llm_service.py
-│       └── llm_models.py
+│   ├── services/
+│   │   └── llm_service.py
+│   │
+│   └── main.py
 │
 ├── tests/
-│   ├── conftest.py
-│   ├── test_api.py
-│   ├── test_llm_service.py
-│   ├── test_orchestrator.py
-│   └── test_real_pipeline.py
 │
+├── docs/
+│   └── screenshots/
+│       ├── architecture.png
+│       ├── swagger.png
+│       ├── render-deployment.png
+│       └── analysis-response.png
+│
+├── requirements.txt
 ├── .env
 ├── .gitignore
-├── .dockerignore
-├── Dockerfile
-├── requirements.txt
 └── README.md
 ```
 
-> **Note:** `.env` should never be committed to Git because it contains the Gemini API key.
-
 ---
 
-## 🛠️ Technology Stack
+# ⚙️ Installation & Setup
 
-| Technology | Purpose |
-|---|---|
-| Python | Core programming language |
-| FastAPI | REST API framework |
-| Pydantic | Data validation and structured models |
-| Google Gemini | Generative AI / LLM |
-| python-dotenv | Environment variable management |
-| Uvicorn | ASGI application server |
-| Pytest | Automated testing |
-| HTTPX | API testing |
-| Git | Version control |
-
----
-
-## 🔑 Environment Configuration
-
-Create a `.env` file in the project root:
-
-```env
-GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-3.5-flash-lite
-```
-
-Never upload the actual API key to GitHub.
-
-Make sure `.env` is included in `.gitignore`:
-
-```text
-.env
-.venv/
-__pycache__/
-*.pyc
-.pytest_cache/
-```
-
----
-
-## ⚙️ Installation
-
-### 1. Clone the repository
+## 1. Clone the Repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone https://github.com/Lekha-na/Enterprise_AI_Resume_Copilot.git
 cd Enterprise_AI_Resume_Copilot
 ```
 
-### 2. Create a virtual environment
+## 2. Create a Virtual Environment
 
 ```bash
 python -m venv .venv
 ```
 
-### 3. Activate the virtual environment
+## 3. Activate the Virtual Environment
 
-Windows PowerShell:
+### Windows PowerShell
 
 ```powershell
 .venv\Scripts\Activate.ps1
 ```
 
-Windows Command Prompt:
+### Windows Command Prompt
 
 ```cmd
 .venv\Scripts\activate
 ```
 
-### 4. Install dependencies
+## 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Configure environment variables
+## 5. Configure Environment Variables
 
-Create `.env` and add your Gemini API key:
+Create a `.env` file in the project root:
 
 ```env
 GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-3.5-flash-lite
 ```
 
----
+**Important:** Never upload your actual API key to GitHub.
 
-## ▶️ Running the Application
+Make sure `.env` is included in `.gitignore`.
 
-Start the FastAPI server:
+## 6. Run the Application
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The API will be available at:
+The local API will be available at:
 
 ```text
 http://127.0.0.1:8000
 ```
 
-FastAPI automatically provides interactive API documentation.
-
-### Swagger UI
-
-Open:
+Swagger documentation:
 
 ```text
 http://127.0.0.1:8000/docs
 ```
 
-### ReDoc
+---
 
-Open:
+# 🔌 API Endpoints
 
-```text
-http://127.0.0.1:8000/redoc
+## Health Check
+
+```http
+GET /
 ```
+
+Checks whether the API is running.
 
 ---
 
-## 🔌 API Endpoints
+## Analyze Candidate Profile
 
-The application currently exposes five main analysis endpoints.
-
-### 1. Analyze Profile
-
-```text
+```http
 POST /analyze-profile
 ```
 
-Analyzes candidate information and generates a structured profile analysis.
+Analyzes candidate information and generates structured profile insights.
 
-### 2. Analyze Job
+---
 
-```text
+## Analyze Job Description
+
+```http
 POST /analyze-job
 ```
 
 Analyzes a job description and extracts important job requirements.
 
-### 3. Analyze Match
+---
 
-```text
+## Analyze Candidate-Job Match
+
+```http
 POST /analyze-match
 ```
 
-Compares a candidate profile against job requirements.
+Compares candidate skills against job requirements and generates matching information.
 
-### 4. Analyze Skill Gap
+---
 
-```text
-POST /analyze-skill-gap
-```
+## Complete Resume Analysis
 
-Identifies missing skills and provides improvement recommendations.
-
-### 5. Complete Resume Analysis
-
-```text
+```http
 POST /analyze
 ```
 
-Runs the complete resume analysis pipeline.
-
-The complete pipeline combines:
+Runs the complete AI Resume Copilot pipeline.
 
 ```text
 Profile Analysis
        ↓
 Job Analysis
        ↓
-Candidate-Job Matching
+Job Matching
        ↓
 Skill Gap Analysis
        ↓
@@ -361,221 +395,359 @@ Final Recommendation
 
 ---
 
-## 🧪 Testing
+# 📊 Example API Request
 
-The project includes automated tests for the API, LLM service, individual components, and the complete pipeline.
+The `/analyze` endpoint accepts candidate and job information.
 
-Run all tests with:
+```json
+{
+  "candidate": {
+    "name": "Alex Johnson",
+    "skills": [
+      "Python",
+      "FastAPI",
+      "LangChain",
+      "RAG",
+      "Google Gemini",
+      "Prompt Engineering"
+    ],
+    "experience": [
+      "Developed AI-powered applications using Python and FastAPI"
+    ],
+    "projects": [
+      "Enterprise AI Resume Copilot"
+    ],
+    "education": "B.Tech in Electronics and Communication Engineering",
+    "certifications": [
+      "Generative AI Certification"
+    ]
+  },
+  "job": {
+    "job_title": "Generative AI Engineer",
+    "company": "Tech Innovations",
+    "description": "Develop and deploy AI-powered applications using modern LLM technologies.",
+    "required_skills": [
+      "Python",
+      "FastAPI",
+      "LangChain",
+      "RAG"
+    ],
+    "preferred_skills": [
+      "Google Gemini",
+      "Vector Databases",
+      "Prompt Engineering"
+    ],
+    "required_experience": "0-2 years",
+    "responsibilities": [
+      "Develop LLM-powered applications",
+      "Build RAG pipelines",
+      "Develop REST APIs",
+      "Optimize AI workflows"
+    ]
+  }
+}
+```
+
+---
+
+# 📤 API Response
+
+The complete analysis response contains:
+
+```text
+Profile Analysis
+├── Candidate Level
+├── Primary Domain
+├── Years of Experience
+├── Key Skills
+└── Project Summary
+
+Job Analysis
+├── Required Skills
+├── Preferred Skills
+├── Experience Requirements
+└── Responsibilities
+
+Match Analysis
+├── Match Percentage
+├── Matched Skills
+└── Missing Skills
+
+Skill Gap Analysis
+├── Missing Skills
+└── Improvement Areas
+
+Resume Optimization
+└── Resume Improvement Suggestions
+
+Final Recommendation
+├── Recommendation
+└── Action Plan
+```
+
+---
+
+# 🧪 Testing
+
+The application is tested using **Pytest**.
+
+## Test Execution
 
 ```bash
 pytest
 ```
 
-Current test status:
+### Test Result
 
 ```text
-15 passed
+15 passed, 1 warning in 18.77s
 ```
 
-This confirms that the current implementation passes the project's automated test suite.
+## Code Coverage
+
+The project currently achieves **87% overall code coverage**.
+
+```text
+TOTAL    242 statements
+MISSED    32 statements
+COVERAGE  87%
+```
+
+### Coverage Summary
+
+| Component             | Coverage |
+| --------------------- | -------: |
+| Profile Analyzer      |      69% |
+| Settings              |      90% |
+| LLM Service           |      90% |
+| API Routes            |       0% |
+| Other core components |     100% |
+| **Overall**           |  **87%** |
+
+The automated test suite successfully passed all **15 tests**.
 
 ---
 
-## 🧠 AI Pipeline
+# ☁️ Deployment
 
-The core orchestration is handled by the resume analysis pipeline.
+The application is deployed on **Render** as a production FastAPI web service.
 
-Conceptually:
+## Production URL
 
-```text
-Candidate + Job
-      │
-      ▼
-Profile Analyzer
-      │
-      ▼
-Job Analyzer
-      │
-      ▼
-Job Matcher
-      │
-      ▼
-Skill Gap Analyzer
-      │
-      ▼
-Resume Optimizer
-      │
-      ▼
-Final Recommender
-      │
-      ▼
-Structured AI Recommendation
-```
+https://enterprise-ai-resume-copilot.onrender.com
 
-Each agent has a focused responsibility instead of forcing one large LLM prompt to perform every task.
+## Swagger Documentation
 
----
+https://enterprise-ai-resume-copilot.onrender.com/docs
 
-## 📌 Example Use Case
-
-A candidate provides:
+## Deployment Flow
 
 ```text
-Skills:
-Python
-FastAPI
-LangChain
-
-Experience:
-Entry-level
-
-Project:
-AI Resume Copilot
-```
-
-A company provides a job requiring:
-
-```text
-Python
-FastAPI
-LangChain
-RAG
-Docker
-```
-
-The system can identify:
-
-```text
-Matched Skills:
-Python
-FastAPI
-LangChain
-
-Missing Skills:
-RAG
-Docker
-```
-
-The system can then recommend improvements such as:
-
-```text
-Priority Improvements:
-- Develop practical RAG experience
-- Learn Docker fundamentals
-- Add RAG/Docker projects to the resume
+GitHub Repository
+        │
+        ▼
+      Render
+        │
+        ▼
+Python / FastAPI Application
+        │
+        ▼
+     Uvicorn
+        │
+        ▼
+Google Gemini API
+        │
+        ▼
+AI Resume Analysis
+        │
+        ▼
+     JSON Response
 ```
 
 ---
 
-## 🔐 Error Handling
+# 📸 Screenshots
 
-The API includes error handling for situations such as:
+## 🏗️ System Architecture
 
-- Invalid request data
-- Invalid model responses
-- LLM service failures
-- Invalid match percentages
-- Missing configuration
-- Unexpected processing errors
-
-When the Gemini service is unavailable, the API can return an appropriate service-unavailable response rather than exposing internal errors to the client.
+![Enterprise AI Resume Copilot Architecture](docs/screenshots/architecture.png)
 
 ---
 
-## 🧩 Design Principles
+## 📚 Swagger API Documentation
 
-The project follows several software engineering principles:
+![Swagger API Documentation](docs/screenshots/swagger.png)
 
-### Modular Architecture
-
-Each AI capability is isolated into a separate module.
-
-### Separation of Concerns
-
-API routes, business logic, AI services, models, and orchestration are separated.
-
-### Structured Outputs
-
-Pydantic models are used to validate and structure AI-generated results.
-
-### Testability
-
-Individual components and API endpoints are covered by automated tests.
-
-### Configuration Management
-
-Sensitive configuration is stored using environment variables rather than hard-coded credentials.
-
-### Extensibility
-
-New agents and analysis capabilities can be added without redesigning the entire application.
+The Swagger interface allows users to interactively test the available API endpoints.
 
 ---
 
-## 🚧 Future Improvements
+## ☁️ Render Deployment
 
-Potential future enhancements include:
+![Render Deployment](docs/screenshots/render-deployment.png)
 
-- Resume PDF upload and parsing
-- Job description PDF parsing
-- DOCX resume support
-- Resume-to-job similarity scoring
-- Vector database integration
-- RAG-based career recommendations
-- Resume section rewriting
-- ATS compatibility scoring
-- Frontend dashboard
-- Authentication and user accounts
-- Persistent resume/job history
-- Deployment to a cloud platform
-- Monitoring and observability
-- CI/CD pipeline
+The application has been successfully deployed and is accessible through the production URL.
 
 ---
 
-## 🎯 Project Goals
+## 🤖 Complete AI Resume Analysis
 
-The main objective of Enterprise AI Resume Copilot is to demonstrate how Generative AI can be integrated into a real-world software application to provide structured, explainable, and actionable career recommendations.
+![AI Resume Analysis Response](docs/screenshots/analysis-response.png)
 
-The project combines:
+The `/analyze` endpoint returns the complete AI-generated resume and job analysis.
+
+---
+
+# 🔐 Environment Variables
+
+The application requires the following environment variable:
+
+| Variable         | Description           |
+| ---------------- | --------------------- |
+| `GEMINI_API_KEY` | Google Gemini API key |
+
+For security:
+
+* Never commit `.env` to GitHub.
+* Never expose API keys in source code.
+* Use Render Environment Variables for production secrets.
+
+---
+
+# 🎯 Project Objectives
+
+The main objective of Enterprise AI Resume Copilot is to automate the resume-to-job analysis process using Generative AI.
+
+The system addresses several common challenges faced by job seekers:
+
+* Understanding complex job descriptions
+* Comparing resumes against job requirements
+* Identifying missing technical skills
+* Optimizing resumes for specific positions
+* Generating personalized recommendations
+
+---
+
+# 🌟 Key Benefits
+
+### 🎯 Accurate Job Matching
+
+Evaluates how closely a candidate's profile aligns with a target job.
+
+### 🔍 Skill Gap Identification
+
+Identifies missing skills and potential improvement areas.
+
+### 📝 Resume Optimization
+
+Provides AI-powered suggestions for improving resume alignment.
+
+### ⚡ Automated Analysis
+
+Combines multiple analysis stages into a single API workflow.
+
+### 💡 Actionable Recommendations
+
+Provides a final recommendation and suggested next steps.
+
+---
+
+# 🔮 Future Enhancements
+
+Planned or potential improvements include:
+
+* 📄 Resume PDF upload and parsing
+* 🔗 Job description URL extraction
+* 🎯 ATS score prediction
+* 🔄 Multiple job comparison
+* 📚 Personalized learning recommendations
+* 👤 User authentication
+* 💾 Persistent candidate profiles
+* 🧠 Advanced vector database semantic search
+* 📑 Resume version management
+* 📊 Analytics dashboard
+* 🖥️ Dedicated frontend application
+* 🔐 API authentication and authorization
+
+---
+
+# 📈 Future Architecture
 
 ```text
-Generative AI
-+
-LLM Engineering
-+
-FastAPI
-+
-Agent-based Architecture
-+
-Pydantic
-+
-REST APIs
-+
-Automated Testing
+                    ┌──────────────────┐
+                    │  Web Dashboard   │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │     FastAPI      │
+                    │    REST API      │
+                    └────────┬─────────┘
+                             │
+              ┌──────────────┴──────────────┐
+              │                             │
+              ▼                             ▼
+       ┌──────────────┐             ┌──────────────┐
+       │ AI Agents    │             │ Vector DB    │
+       └──────┬───────┘             └──────┬───────┘
+              │                             │
+              └──────────────┬──────────────┘
+                             ▼
+                    ┌──────────────────┐
+                    │  Google Gemini   │
+                    │       LLM        │
+                    └────────┬─────────┘
+                             │
+                             ▼
+                    ┌──────────────────┐
+                    │ Career Insights  │
+                    │ & Recommendations│
+                    └──────────────────┘
 ```
 
 ---
 
-## 👩‍💻 Author
+# 🧩 Design Principles
 
-**Lekhana**
+The application follows several software engineering principles:
 
-B.Tech – Electronics and Communication Engineering
-
-Interested in:
-
-- Generative AI
-- LLM Applications
-- AI Engineering
-- Python
-- FastAPI
-- Agentic AI
-- RAG
-- Prompt Engineering
+* **Modular architecture**
+* **Separation of concerns**
+* **Reusable AI agents**
+* **Structured Pydantic models**
+* **RESTful API design**
+* **Environment-based configuration**
+* **Automated testing**
+* **Cloud deployment**
+* **Secure API key management**
 
 ---
 
-## 📄 License
+# 👩‍💻 Author
 
-This project is intended for educational, portfolio, and demonstration purposes.
+## Lekhana
+
+**B.Tech — Electronics & Communication Engineering**
+
+### Areas of Interest
+
+* Generative AI
+* Large Language Models
+* Prompt Engineering
+* AI Engineering
+* Python
+* FastAPI
+* RAG
+* LLM Applications
+
+---
+
+# 📄 License
+
+This project is intended for **educational, portfolio, and demonstration purposes**.
+
+---
+
+## ⭐ If You Find This Project Interesting
+
+Feel free to explore the repository, test the live API, and experiment with the AI-powered resume analysis workflow.
