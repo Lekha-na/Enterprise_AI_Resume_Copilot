@@ -42,7 +42,7 @@ The Swagger UI provides an interactive interface for testing all available API e
 
 ## 🏗️ System Architecture
 
-![Enterprise AI Resume Copilot Architecture](docs/screenshots/architecture.png)
+![Enterprise AI Resume Copilot Architecture](docs/screenshots/Architecture.png)
 
 The system follows a modular AI-analysis architecture.
 
