@@ -568,35 +568,33 @@ AI Resume Analysis
 
 # 📸 Screenshots
 
+## 🏷️ Project Banner
+
+![Enterprise AI Resume Copilot](screenshots/Banner.png)
+
 ## 🏗️ System Architecture
 
-![Enterprise AI Resume Copilot Architecture](docs/screenshots/architecture.png)
-
----
+![Enterprise AI Resume Copilot Architecture](screenshots/Architecture.png)
 
 ## 📚 Swagger API Documentation
 
-![Swagger API Documentation](docs/screenshots/swagger.png)
+![Swagger API Documentation](screenshots/swagger.png)
 
 The Swagger interface allows users to interactively test the available API endpoints.
 
----
-
 ## ☁️ Render Deployment
 
-![Render Deployment](docs/screenshots/render-deployment.png)
+![Render Deployment](screenshots/deployment.png)
 
 The application has been successfully deployed and is accessible through the production URL.
 
----
 
-## 🤖 Complete AI Resume Analysis
+## 🤖 Testing Results
 
-![AI Resume Analysis Response](docs/screenshots/analysis-response.png)
+![Testing Results](screenshots/testing.png)
 
-The `/analyze` endpoint returns the complete AI-generated resume and job analysis.
+The automated test suite successfully passed all 15 tests.
 
----
 
 # 🔐 Environment Variables
 
